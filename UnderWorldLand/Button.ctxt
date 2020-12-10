@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Button
+comment1.params=
+comment1.target=Button()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=normalButtonState\ clickedButtonState
+comment3.target=void\ prepareButtons(java.lang.String,\ java.lang.String)
+comment4.params=
+comment4.target=void\ doAction()
+numComments=5
