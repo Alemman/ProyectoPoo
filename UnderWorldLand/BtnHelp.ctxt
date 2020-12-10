@@ -3,5 +3,5 @@ comment0.target=BtnHelp
 comment1.params=
 comment1.target=BtnHelp()
 comment2.params=
-comment2.target=void\ act()
+comment2.target=void\ doAction()
 numComments=3

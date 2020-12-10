@@ -1,28 +1,15 @@
 import greenfoot.*;
 
-
 public class BtnNewGame extends Button
 {
-    
+
     public BtnNewGame(){
-        image = new GreenfootImage("images/btn-red.png");
-        image.scale(WIDTH_BUTTON,HEIGHT_BUTTON);
-        setImage(image);
+        prepareButtons("images/btn-red.png", "images/btn-newgame-yellow.png"); 
     }
 
-    public void act() 
+    public void doAction() 
     {
-       if(Greenfoot.mouseClicked(this))
-       {
-            image = new GreenfootImage("images/btn-newgame-yellow.png");
-            image.scale(WIDTH_BUTTON,HEIGHT_BUTTON);
-            setImage(image);
-            Greenfoot.delay(10);
-            
-            Greenfoot.setWorld(new GameScreen());
-       }
-       
+        Greenfoot.setWorld(new GameScreen());      
     } 
-
 
 }
