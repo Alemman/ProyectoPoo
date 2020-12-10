@@ -6,7 +6,7 @@ public class BtnNewGame extends Button
     
     public BtnNewGame(){
         image = new GreenfootImage("images/btn-red.png");
-        image.scale(with,heigth);
+        image.scale(WIDTH_BUTTON,HEIGHT_BUTTON);
         setImage(image);
     }
 
@@ -15,7 +15,7 @@ public class BtnNewGame extends Button
        if(Greenfoot.mouseClicked(this))
        {
             image = new GreenfootImage("images/btn-newgame-yellow.png");
-            image.scale(with,heigth);
+            image.scale(WIDTH_BUTTON,HEIGHT_BUTTON);
             setImage(image);
             Greenfoot.delay(10);
             

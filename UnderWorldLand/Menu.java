@@ -3,36 +3,23 @@ import greenfoot.*;
 
 public class Menu extends Window
 {
-    private BtnNewGame newGame;
-    private BtnRecord record;
-    private BtnHelp help;
-    private BtnExit exit;
-
     private static final GreenfootImage fondoMenu = new GreenfootImage("images/main-menu.jpg");
 
     public Menu()
     {
-       // super(with,height, 1); 
-        fondoMenu.scale(with,height);
-        setBackground(fondoMenu);
+       fondoMenu.scale(WIDTH_WORLD,HEIGHT_WORLD);
+       setBackground(fondoMenu);
         
-        prepareButtons();
+       prepareButtons();
         
     }
    
     
-    private void prepareButtons(){
-        newGame = new BtnNewGame();
-        addObject(newGame,BtnX,BtnY);
-       
-        record = new BtnRecord();
-        addObject(record,BtnX,BtnY + buttonGap);
-        
-        help = new BtnHelp();
-        addObject(help,BtnX,BtnY + buttonGap*2);
-        
-        exit = new BtnExit();
-        addObject(exit,BtnX,BtnY + buttonGap*3);
+    private void prepareButtons(){        
+        addObject(new BtnNewGame(),BUTTON_X,BUTTON_Y);
+        addObject(new BtnRecord(),BUTTON_X,BUTTON_Y + BUTTON_GAP);       
+        addObject(new BtnHelp(),BUTTON_X,BUTTON_Y + BUTTON_GAP*2);        
+        addObject(new BtnExit(),BUTTON_X,BUTTON_Y + BUTTON_GAP*3);
         
         showText("UnderWorld Land", 250, 100);
         
