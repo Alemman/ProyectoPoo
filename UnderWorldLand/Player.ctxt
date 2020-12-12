@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Player
+comment1.params=points\ username
+comment1.target=Player(int,\ java.lang.String)
+comment2.params=
+comment2.target=int\ getPoints()
+comment3.params=
+comment3.target=java.lang.String\ getUsername()
+comment4.params=points
+comment4.target=void\ setPoints(int)
+comment5.params=username
+comment5.target=void\ setUsername(java.lang.String)
+numComments=6

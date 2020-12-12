@@ -10,7 +10,7 @@ abstract public class Button extends Actor
     {
 
     }
-   
+
     public void act(){
         if(Greenfoot.mouseClicked(this)){
             setImage(images[1]);

@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  
 
 public class BtnMainMenu extends Button
 {
@@ -9,7 +9,7 @@ public class BtnMainMenu extends Button
     public void doAction() 
     {
         Menu mainMenu = new Menu();
-        
+
         Greenfoot.setWorld(mainMenu);
     }    
 }
