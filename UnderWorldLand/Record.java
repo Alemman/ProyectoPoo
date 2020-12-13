@@ -12,9 +12,9 @@ import java.io.File;
 
 public class Record extends Window
 {
-    private Player []players = new Player[5];
+   // private Player []players = new Player[5];
     public Record()
-    {   
+    {  
         prepareWindow();
     }
 
@@ -40,8 +40,9 @@ public class Record extends Window
     }
 
     private void writeRecords(Player player){
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter("documents/record.txt", true))){
-            PrintWriter out = new PrintWriter(bw);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter("documents/record.txt", true));
+            PrintWriter out = new PrintWriter(bw))
+        {
             out.print(player.getPoints());
             out.print(" ");
             out.println(player.getUsername());
@@ -52,8 +53,9 @@ public class Record extends Window
 
     public void addRecord(Player player){
         Player mayor;
+        Player []players = readRecords();
         int current = 0;
-        if(readRecords()){
+        if(players != null){
             while(current < players.length){
                 if(player.getPoints() >= players[current].getPoints()){
                     while(current < players.length){
@@ -83,10 +85,9 @@ public class Record extends Window
         }
     }
 
-    private boolean readRecords(){
-        try {
-            File myObj = new File("documents/record.txt");
-            Scanner myReader = new Scanner(myObj);
+    private Player [] readRecords(){
+        Player []players = new Player[5];
+        try(Scanner myReader = new Scanner(new File("documents/record.txt"))) {
             int i = 0;
             while (myReader.hasNextLine() && i < players.length){
                 Player player = new Player(myReader.nextInt(),myReader.nextLine());
@@ -94,9 +95,9 @@ public class Record extends Window
                 i++;
             }
             myReader.close();
-            return true;
+            return players;
         } catch (FileNotFoundException e) {
-            return false;
+            return null;
         }
     }
 

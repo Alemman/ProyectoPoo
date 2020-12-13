@@ -13,5 +13,5 @@ comment5.target=void\ addRecord(Player)
 comment6.params=
 comment6.target=void\ delete()
 comment7.params=
-comment7.target=boolean\ readRecords()
+comment7.target=Player[]\ readRecords()
 numComments=8
