@@ -12,7 +12,6 @@ import java.io.File;
 
 public class Record extends Window
 {
-   // private Player []players = new Player[5];
     public Record()
     {  
         prepareWindow();
