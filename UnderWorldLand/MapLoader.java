@@ -11,25 +11,20 @@ public class MapLoader
 
     private void drawMap(Stage stage,Map map){
         switch(stage){
-
             case FIRST:
-
-            drawWallsStage1(map,new GreenfootImage("images/background-stage1.png"));
-
+            drawStage1(map,new GreenfootImage("images/background-stage1.png"));
             break;
             case SECOND:
-            drawWallsStage1(map,new GreenfootImage("images/background-stage2.jpg"));
-
+            drawStage1(map,new GreenfootImage("images/background-stage2.jpg"));
             break;
             case THIRD:
-            drawWallsStage1(map,new GreenfootImage("images/background-stage3.jpg"));
-
+            drawStage1(map,new GreenfootImage("images/background-stage3.jpg"));
             break;
         }
 
     }
 
-    private void drawWallsStage1(Map map,GreenfootImage background){
+    private void drawStage1(Map map,GreenfootImage background){
         background.scale(map.getWidth(),map.getWidth());
         map.setBackground(background);
 
@@ -56,11 +51,11 @@ public class MapLoader
         map.addObject(new BtnMainMenu(),70,30);
     }
 
-    private void drawWallsStage2(Map map){
+    private void drawStage2(Map map){
         map.addObject(new Wall(new GreenfootImage("images/wall-stage1.png")), 50, 150);
     }
 
-    private void drawWallsStage3(Map map){
+    private void drawStage3(Map map){
         map.addObject(new Wall(new GreenfootImage("images/wall-stage1.png")), 50, 150);
     }
 }
