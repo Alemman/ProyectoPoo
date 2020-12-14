@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
 
 public class Window extends World
 {
@@ -9,11 +9,10 @@ public class Window extends World
     protected static final int BUTTON_GAP = 80;
     protected static final int X_BUTTON_MAIN = 70;
     protected static final int Y_BUTTON_MAIN = 30;
-  
-    
+
     public Window()
     {    
         super(WIDTH_WORLD, HEIGHT_WORLD, 1); 
-        
+
     }
 }
