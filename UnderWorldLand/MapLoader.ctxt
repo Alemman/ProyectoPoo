@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=MapLoader
+comment1.params=stage
+comment1.target=Map\ loadMap(Stage)
+comment2.params=stage\ map
+comment2.target=void\ drawMap(Stage,\ Map)
+comment3.params=map\ background
+comment3.target=void\ drawStage1(Map,\ greenfoot.GreenfootImage)
+comment4.params=map
+comment4.target=void\ drawStage2(Map)
+comment5.params=map
+comment5.target=void\ drawStage3(Map)
+numComments=6

@@ -9,7 +9,10 @@ public class BtnNewGame extends Button
 
     public void doAction() 
     {
-        Greenfoot.setWorld(new GameScreen());      
+        Greenfoot.setWorld(new Map()); 
+        MapLoader mapLoader = new MapLoader();
+           
+        Greenfoot.setWorld(mapLoader.loadMap(Stage.FIRST));
     } 
 
 }
