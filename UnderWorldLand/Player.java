@@ -18,12 +18,4 @@ public class Player
     public String getUsername(){
         return username;   
     }
-
-    public void setPoints(int points){
-        this.points = points;   
-    }
-
-    public void setUsername(String username){
-        this.username = username;
-    }
 }

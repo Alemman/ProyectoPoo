@@ -40,7 +40,7 @@ public class Record extends Window
 
     private void writeRecords(Player player){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("documents/record.txt", true));
-            PrintWriter out = new PrintWriter(bw))
+        PrintWriter out = new PrintWriter(bw))
         {
             out.print(player.getPoints());
             out.print(" ");
@@ -50,29 +50,32 @@ public class Record extends Window
         }
     }
 
-    public void addRecord(Player player){
+    public void addRecord(Player playerToInsert){
         Player mayor;
         Player []players = readRecords();
         int current = 0;
         if(players != null){
-            while(current < players.length){
-                if(player.getPoints() >= players[current].getPoints()){
-                    while(current < players.length){
-                        mayor = players[current];
-                        players[current] = player;
-                        player = mayor;
-                        current++;
-                    }
-                    delete();
-                    for(Player P: players){
-                        writeRecords(P);
+            Player []playersToWrite = new Player[6];
+
+            for(int i = 0;i < players.length && players[i] != null; i++){
+                if(playerToInsert.getPoints() >= players[i].getPoints()){
+                    for(int j = i; j < players.length && players[j] != null; j++){
+                        if(j == 0)
+                            playersToWrite[j] = playerToInsert;
+                        playersToWrite[j+1] = players[j];
                     }
                     break;
+                }else{
+                    playersToWrite[i] = players[i];
+                    playersToWrite[i+1] = playerToInsert;
                 }
-                current++;
+            }
+            delete();
+            for(int i = 0; i < playersToWrite.length-1 && playersToWrite[i] != null; i++){
+                writeRecords(playersToWrite[i]);
             }
         }else{
-            writeRecords(player);
+            writeRecords(playerToInsert);
         }
 
     }
@@ -93,7 +96,6 @@ public class Record extends Window
                 players[i] = player;
                 i++;
             }
-            myReader.close();
             return players;
         } catch (FileNotFoundException e) {
             return null;
