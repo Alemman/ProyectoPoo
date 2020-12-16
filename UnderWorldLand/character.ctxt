@@ -2,4 +2,14 @@
 comment0.target=Character
 comment1.params=
 comment1.target=void\ act()
-numComments=2
+comment2.params=keyDirection
+comment2.target=void\ walk(java.lang.String)
+comment3.params=
+comment3.target=void\ fallingInStyle()
+comment4.params=
+comment4.target=void\ jump()
+comment5.params=keyDirection
+comment5.target=void\ move(java.lang.String)
+comment6.params=
+comment6.target=void\ checkCollisionsWalls()
+numComments=7
