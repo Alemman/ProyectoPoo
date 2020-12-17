@@ -2,7 +2,7 @@ import greenfoot.*;
 
 public class MapLoader  
 {
-
+    private static final int INCREASE_WALL_POSITION = 100;
     public Map loadMap(Stage stage){
         Map map = new Map();
         drawMap(stage,map);
@@ -28,11 +28,11 @@ public class MapLoader
         background.scale(map.getWidth(),map.getWidth());
         map.setBackground(background);
 
-        for(int i = 0; i <= 400; i+=100){
+        for(int i = 0; i <= 400; i+=INCREASE_WALL_POSITION){
             map.addObject(new Wall(new GreenfootImage("images/wall-stage1v.png")), 15, i);
             map.addObject(new Wall(new GreenfootImage("images/wall-stage1v.png")), 585, i);
         }
-        for(int i = 0; i <= 600; i+=100){
+        for(int i = 0; i <= 600; i+=INCREASE_WALL_POSITION){
             map.addObject(new Floor(new GreenfootImage("images/wall-stage1.png")), i, 585);
         }
 

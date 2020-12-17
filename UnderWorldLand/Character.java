@@ -18,7 +18,7 @@ abstract public class Character extends Actor
     }
 
     protected void walk(String keyDirection){
-        currentSprite = (++currentSprite) % hashMapSprites.arrayLength(keyDirection);
+        currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey(keyDirection);
         setImage(hashMapSprites.currentSprite(keyDirection,currentSprite));
         setLocation(getX() + movementInX, getY());
     }

@@ -1,24 +1,25 @@
 import greenfoot.*;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class HashMapSprite  
 {
-    private HashMap<String,GreenfootImage[]> hashMapSprites;
+    private HashMap<String,ArrayList<GreenfootImage>> hashMapSprites;
     public HashMapSprite()
     {
-        hashMapSprites = new HashMap<String,GreenfootImage[]>();
+        hashMapSprites = new HashMap<String,ArrayList<GreenfootImage>>();
     }
     public GreenfootImage currentSprite(String key,int currentIndex){
-        GreenfootImage []array = hashMapSprites.get(key);
-        return array[currentIndex];
+        ArrayList<GreenfootImage> arrayList = hashMapSprites.get(key);
+        return arrayList.get(currentIndex);
     }
     
-    public void putSprites(String key,GreenfootImage []value){
+    public void putSprites(String key,ArrayList<GreenfootImage> value){
         hashMapSprites.put(key,value);
     }
-    public int arrayLength(String key){
-        GreenfootImage []array = hashMapSprites.get(key);
-        return array.length;
+    public int spritesCountByKey(String key){
+        ArrayList<GreenfootImage> arrayList = hashMapSprites.get(key);
+        return arrayList.size();
     }
 
 }

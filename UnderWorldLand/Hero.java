@@ -1,31 +1,33 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Hero extends Character
 {
     private static final int INITIAL_LIFES = 3;
     private static final int INITIAL_POINTS = 0;
-
+    private static final int FALL_TIME = 5;
+    private int fallTime = 0;
     private int lifes;
     private int points;
 
 
     public Hero(){
-        GreenfootImage []spritesLeft = new GreenfootImage[6];
-        GreenfootImage []spritesRight = new GreenfootImage[6];   
+        ArrayList<GreenfootImage> spritesLeft = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> spritesRight =  new ArrayList<GreenfootImage>();   
         for(int i = 0; i<6; i++){
-            spritesRight[i] = new GreenfootImage("images/hero-walk-" + (i+1) + ".png");
-            spritesLeft[i] = new GreenfootImage("images/hero-walk-" + (i+1) + ".png");
-            spritesLeft[i].mirrorHorizontally();
+            spritesRight.add(new GreenfootImage("images/hero-walk-" + (i+1) + ".png"));
+            spritesLeft.add(new GreenfootImage("images/hero-walk-" + (i+1) + ".png"));
+            spritesLeft.get(i).mirrorHorizontally();
         }
         hashMapSprites.putSprites("right",spritesRight);
         hashMapSprites.putSprites("left",spritesLeft);
-        GreenfootImage []spritesUp = new GreenfootImage[2];
-        GreenfootImage []spritesUpMirrorHorizontally = new GreenfootImage[2];
+        ArrayList<GreenfootImage> spritesUp = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> spritesUpMirrorHorizontally =  new ArrayList<GreenfootImage>();
         for(int i = 0; i<2; i++){
-            spritesUp[i] = new GreenfootImage("images/hero-up-" + (i+1) + ".png");
-            spritesUpMirrorHorizontally[i] = new GreenfootImage("images/hero-up-" + (i+1) + ".png");
-            spritesUpMirrorHorizontally[i].mirrorHorizontally();
+            spritesUp.add(new GreenfootImage("images/hero-up-" + (i+1) + ".png"));
+            spritesUpMirrorHorizontally.add(new GreenfootImage("images/hero-up-" + (i+1) + ".png"));
+            spritesUpMirrorHorizontally.get(i).mirrorHorizontally();
         }
         hashMapSprites.putSprites("up",spritesUp);
         hashMapSprites.putSprites("upMirror",spritesUpMirrorHorizontally);
@@ -53,7 +55,7 @@ public class Hero extends Character
             move("right");
             checkCollisionsWalls();
             walk("right");
-        }else if(Greenfoot.isKeyDown("up") && isTouching(Floor.class)){
+        }else if(Greenfoot.isKeyDown("up") && fallTime++ <= FALL_TIME){
             jump();
             movementInY = 0;
         }
@@ -66,6 +68,7 @@ public class Hero extends Character
             Greenfoot.delay(1);
         }else{
             gravityOn = false;
+            fallTime = 0;
             String lastKeyPressed = Greenfoot.getKey();
             if(lastKeyPressed != null && lastKeyPressed.equals("left"))
                 setImage(hashMapSprites.currentSprite("left",0));
@@ -76,19 +79,16 @@ public class Hero extends Character
     }
 
     void jump(){
-        movementInY = -10;
-        String lastKeyPressed = Greenfoot.getKey();
-        lastKeyPressed = Greenfoot.getKey();
-        for(int i = 0; i<5; i++){ 
-            currentSprite = (++currentSprite) % hashMapSprites.arrayLength("up");
+            movementInY = -10;
+            currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("up");
+
             movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
-            setImage((Greenfoot.isKeyDown("left"))
+            setImage(
+                (Greenfoot.isKeyDown("left"))
                 ? hashMapSprites.currentSprite("upMirror",currentSprite)
                 : hashMapSprites.currentSprite("up",currentSprite)
             );
-            setLocation(getX()+ movementInX, getY()+ movementInY*i);
-            Greenfoot.delay(3);
+            setLocation(getX()+ movementInX, getY()+ movementInY*fallTime);
         }
-    }
 
 }
