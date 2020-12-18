@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Hud
+comment1.params=lives\ level\ score
+comment1.target=Hud(int,\ Stage,\ int)
+comment10.params=
+comment10.target=int\ getLives()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=java.lang.String\ getTextHud()
+comment4.params=
+comment4.target=void\ timer()
+comment5.params=stage
+comment5.target=void\ setLevel(Stage)
+comment6.params=score
+comment6.target=void\ setScore(int)
+comment7.params=lives
+comment7.target=void\ setLives(int)
+comment8.params=
+comment8.target=Stage\ getLevel()
+comment9.params=
+comment9.target=int\ getScore()
+numComments=11

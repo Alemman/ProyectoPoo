@@ -7,10 +7,10 @@ public class Hero extends Character
     private static final int INITIAL_LIFES = 3;
     private static final int INITIAL_POINTS = 0;
     private static final int FALL_TIME = 5;
+
     private int fallTime = 0;
     private int lifes;
     private int points;
-
 
     public Hero(){
         ArrayList<GreenfootImage> spritesLeft = new ArrayList<GreenfootImage>();
@@ -42,53 +42,65 @@ public class Hero extends Character
 
     public void act() 
     {
+        if(!isFinish()){
+            if(Greenfoot.isKeyDown("left") && !gravityOn)
+            {
+                move("left");
+                checkCollisionsWalls();
+                walk("left");
 
-        if(Greenfoot.isKeyDown("left") && !gravityOn)
-        {
-            move("left");
-            checkCollisionsWalls();
-            walk("left");
+            }
+            else if(Greenfoot.isKeyDown("right") && !gravityOn)
+            {
+                move("right");
+                checkCollisionsWalls();
+                walk("right");
+            }else if(Greenfoot.isKeyDown("up") && fallTime++ <= FALL_TIME){
+                jump();
+                movementInY = 0;
+            }
 
-        }
-        else if(Greenfoot.isKeyDown("right") && !gravityOn)
-        {
-            move("right");
-            checkCollisionsWalls();
-            walk("right");
-        }else if(Greenfoot.isKeyDown("up") && fallTime++ <= FALL_TIME){
-            jump();
-            movementInY = 0;
-        }
+            if(!isTouching(Floor.class)){
+                gravityOn = true;
+                fallingInStyle();
+                movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
+                setLocation(getX()+ movementInX, getY()+movementInY); 
+                Greenfoot.delay(1);
+            }else{
+                gravityOn = false;
+                fallTime = 0;
+                String lastKeyPressed = Greenfoot.getKey();
+                if(lastKeyPressed != null && lastKeyPressed.equals("left"))
+                    setImage(hashMapSprites.currentSprite("left",0));
+                else if(lastKeyPressed != null && lastKeyPressed.equals("right"))
+                    setImage(hashMapSprites.currentSprite("right",0));
+            }
+        }else
+            showWindow();
+    }
 
-        if(!isTouching(Floor.class)){
-            gravityOn = true;
-            fallingInStyle();
-            movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
-            setLocation(getX()+ movementInX, getY()+movementInY); 
-            Greenfoot.delay(1);
-        }else{
-            gravityOn = false;
-            fallTime = 0;
-            String lastKeyPressed = Greenfoot.getKey();
-            if(lastKeyPressed != null && lastKeyPressed.equals("left"))
-                setImage(hashMapSprites.currentSprite("left",0));
-            else if(lastKeyPressed != null && lastKeyPressed.equals("right"))
-                setImage(hashMapSprites.currentSprite("right",0));
-        }
+    private void showWindow(){
+        Map world = (Map)getWorld();
+        world.addObject( new BtnNextLevel(),world.getWidth()/2,world.getHeight()/2);
+        world.addObject( new WindowSummary("cadena de prueba"),world.getWidth()/2,200);
+    }
 
+    private boolean isFinish(){
+        World world = getWorld();
+        return world.getObjects(Enemy.class).isEmpty();
     }
 
     void jump(){
-            movementInY = -10;
-            currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("up");
+        movementInY = -10;
+        currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("up");
 
-            movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
-            setImage(
-                (Greenfoot.isKeyDown("left"))
-                ? hashMapSprites.currentSprite("upMirror",currentSprite)
-                : hashMapSprites.currentSprite("up",currentSprite)
-            );
-            setLocation(getX()+ movementInX, getY()+ movementInY*fallTime);
-        }
+        movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
+        setImage(
+            (Greenfoot.isKeyDown("left"))
+            ? hashMapSprites.currentSprite("upMirror",currentSprite)
+            : hashMapSprites.currentSprite("up",currentSprite)
+        );
+        setLocation(getX()+ movementInX, getY()+ movementInY*fallTime);
+    }
 
 }

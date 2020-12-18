@@ -3,30 +3,34 @@ import greenfoot.*;
 public class MapLoader  
 {
     private static final int INCREASE_WALL_POSITION = 100;
-    public Map loadMap(Stage stage){
+
+    public Map loadMap(Hud hud){
         Map map = new Map();
-        drawMap(stage,map);
+        drawMap(map,hud);
         return map;
     }
 
-    private void drawMap(Stage stage,Map map){
-        switch(stage){
+    private void drawMap(Map map,Hud hud){
+        switch(hud.getLevel()){
             case FIRST:
-            drawStage1(map,new GreenfootImage("images/background-stage2.jpg"));
+            drawStage1(map,new GreenfootImage("images/background-stage2.jpg"),hud);
             break;
             case SECOND:
-            drawStage1(map,new GreenfootImage("images/background-stage2.jpg"));
+            drawStage1(map,new GreenfootImage("images/background-stage2.jpg"),hud);
             break;
             case THIRD:
-            drawStage1(map,new GreenfootImage("images/background-stage3.jpg"));
+            drawStage1(map,new GreenfootImage("images/background-stage3.jpg"),hud);
             break;
         }
 
     }
 
-    private void drawStage1(Map map,GreenfootImage background){
+    private void drawStage1(Map map,GreenfootImage background,Hud hud){
         background.scale(map.getWidth(),map.getWidth());
         map.setBackground(background);
+
+        map.addObject(hud, 400,50 );
+        map.setHud(hud);
 
         for(int i = 0; i <= 400; i+=INCREASE_WALL_POSITION){
             map.addObject(new Wall(new GreenfootImage("images/wall-stage1v.png")), 15, i);
@@ -36,19 +40,20 @@ public class MapLoader
             map.addObject(new Floor(new GreenfootImage("images/wall-stage1.png")), i, 585);
         }
 
-        map.addObject(new Item(new GreenfootImage("images/items-j.png")), 200, 525);
-        map.addObject(new Item(new GreenfootImage("images/items-a.png")), 150, 325);
-        map.addObject(new Item(new GreenfootImage("images/items-a.png")), 550, 425);
-        map.addObject(new Item(new GreenfootImage("images/items-v.png")), 500, 325);
+        map.addObject(new ItemJ(), 400, 550);
+        map.addObject(new ItemAPink(), 450, 550);
+        map.addObject(new ItemABlack(), 550, 550);
+        map.addObject(new ItemV(), 500, 550);
         map.addObject(new Hero(),300,50);
+        map.addObject(new Enemy(),300,50);
         map.addObject(new BtnMainMenu(),70,30);
     }
 
-    private void drawStage2(Map map){
+    private void drawStage2(Map map,GreenfootImage background,Hud hud){
         map.addObject(new Wall(new GreenfootImage("images/wall-stage1.png")), 50, 150);
     }
 
-    private void drawStage3(Map map,GreenfootImage background){
+    private void drawStage3(Map map,GreenfootImage background,Hud hud){
         background.scale(map.getWidth(),map.getWidth());
         map.setBackground(background);
 
@@ -67,10 +72,6 @@ public class MapLoader
         map.addObject(new Floor(new GreenfootImage("images/wall-stage1.png")), 550, 525);
         map.addObject(new Floor(new GreenfootImage("images/wall-stage1.png")), 450, 525);
 
-        map.addObject(new Item(new GreenfootImage("images/items-j.png")), 200, 525);
-        map.addObject(new Item(new GreenfootImage("images/items-a.png")), 150, 325);
-        map.addObject(new Item(new GreenfootImage("images/items-a.png")), 550, 425);
-        map.addObject(new Item(new GreenfootImage("images/items-v.png")), 500, 325);
         map.addObject(new Hero(),300,50);
         map.addObject(new BtnMainMenu(),70,30);
     }
