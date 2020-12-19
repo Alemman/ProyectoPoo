@@ -2,6 +2,4 @@
 comment0.target=Item
 comment1.params=
 comment1.target=void\ act()
-comment2.params=image
-comment2.target=Item(greenfoot.GreenfootImage)
-numComments=3
+numComments=2
