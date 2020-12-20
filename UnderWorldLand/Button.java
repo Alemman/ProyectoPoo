@@ -6,11 +6,6 @@ abstract public class Button extends Actor
     protected static final int HEIGHT_BUTTON = 50;
     protected GreenfootImage []images;
 
-    public Button()
-    {
-
-    }
-
     public void act(){
         if(Greenfoot.mouseClicked(this)){
             setImage(images[1]);

@@ -1,16 +1,21 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  
 import java.util.HashMap;
 import java.util.ArrayList;
+
 
 public class Hero extends Character
 {
     private static final int INITIAL_LIFES = 3;
     private static final int INITIAL_POINTS = 0;
-    private static final int FALL_TIME = 5;
-
+    private static final int FALL_TIME = 4;
+    private static final int INITIAL_ITEMS = 4;
+    private static final int AMOUNT_BY_LIFE = 40;
+    private int activatedWeapon;
+    private CharacterDirection directionInX;
     private int fallTime = 0;
     private int lifes;
     private int points;
+    private int amountByLife;
 
     public Hero(){
         ArrayList<GreenfootImage> spritesLeft = new ArrayList<GreenfootImage>();
@@ -32,64 +37,175 @@ public class Hero extends Character
         hashMapSprites.putSprites("up",spritesUp);
         hashMapSprites.putSprites("upMirror",spritesUpMirrorHorizontally);
 
+        ArrayList<GreenfootImage> spritesKnockRight = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> spritesKnockLeft =  new ArrayList<GreenfootImage>();
+        for(int i = 0; i<2; i++){
+            spritesKnockRight.add(new GreenfootImage("images/hero-knock-" + (i+1) + ".png"));
+            spritesKnockLeft.add(new GreenfootImage("images/hero-knock-" + (i+1) + ".png"));
+            spritesKnockLeft.get(i).mirrorHorizontally();
+        }
+        hashMapSprites.putSprites("hitToTheRight",spritesKnockRight);
+        hashMapSprites.putSprites("hitToTheLeft",spritesKnockLeft);
+        
+        
+        ArrayList<GreenfootImage> spritesShootRight = new ArrayList<GreenfootImage>();
+        ArrayList<GreenfootImage> spritesShootLeft =  new ArrayList<GreenfootImage>();
+        spritesShootRight.add(new GreenfootImage("images/hero-shoot.png"));
+        spritesShootLeft.add(new GreenfootImage("images/hero-shoot.png"));
+        spritesShootLeft.get(0).mirrorHorizontally();
+        
+        hashMapSprites.putSprites("shootRight",spritesShootRight);
+        hashMapSprites.putSprites("shootLeft",spritesShootLeft);
+
         currentSprite = 3;
         lifes = INITIAL_LIFES;
         points = INITIAL_POINTS;
         direction = CharacterDirection.RIGHT;
         setImage(hashMapSprites.currentSprite("left",3));
-
+        directionInX = CharacterDirection.LEFT;
+        activatedWeapon = INITIAL_ITEMS;
+        amountByLife = AMOUNT_BY_LIFE;
     }
 
     public void act() 
     {
-        if(!isFinish()){
-            if(Greenfoot.isKeyDown("left") && !gravityOn)
-            {
-                move("left");
-                checkCollisionsWalls();
-                walk("left");
+        if(lifes > 0){
+            if(!isFinishLevel()){
+                if(Greenfoot.isKeyDown("left") && !gravityOn)
+                {
+                    directionInX = CharacterDirection.LEFT;
+                    move("left");
+                    checkCollisions();
+                    walk("left");
 
-            }
-            else if(Greenfoot.isKeyDown("right") && !gravityOn)
-            {
-                move("right");
-                checkCollisionsWalls();
-                walk("right");
-            }else if(Greenfoot.isKeyDown("up") && fallTime++ <= FALL_TIME){
-                jump();
-                movementInY = 0;
-            }
+                }
+                else if(Greenfoot.isKeyDown("right") && !gravityOn)
+                {
+                    directionInX = CharacterDirection.RIGHT;
+                    move("right");
+                    checkCollisions();
+                    walk("right");
+                }else if(Greenfoot.isKeyDown("up") && fallTime++ <= FALL_TIME){
+                    (new GreenfootSound("sounds/jump.wav")).play();
+                    jump();
+                    movementInY = 0;
+                }
 
-            if(!isTouching(Floor.class)){
-                gravityOn = true;
-                fallingInStyle();
-                movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
-                setLocation(getX()+ movementInX, getY()+movementInY); 
-                Greenfoot.delay(1);
+                if(!isTouching(Rock.class) && !isTouching(Floor.class)){
+                    gravityOn = true;
+                    fallingInStyle();
+                    movementInX = (Greenfoot.isKeyDown("right")) ? 15: ((Greenfoot.isKeyDown("left")) ? -15: 0);
+                    setLocation(getX()+ movementInX, getY()+movementInY); 
+                    Greenfoot.delay(1);
+                }else{
+                    gravityOn = false;
+                    fallTime = 0;
+                    String lastKeyPressed = Greenfoot.getKey();
+                    if(lastKeyPressed != null && lastKeyPressed.equals("left"))
+                        setImage(hashMapSprites.currentSprite("left",0));
+                    else if(lastKeyPressed != null && lastKeyPressed.equals("right"))
+                        setImage(hashMapSprites.currentSprite("right",0));
+                }
+                if(Greenfoot.isKeyDown("space") && activatedWeapon <= 0)
+                    shootWeapon();
+                    
+                checkCollisionsEnemy();                       
             }else{
-                gravityOn = false;
-                fallTime = 0;
-                String lastKeyPressed = Greenfoot.getKey();
-                if(lastKeyPressed != null && lastKeyPressed.equals("left"))
-                    setImage(hashMapSprites.currentSprite("left",0));
-                else if(lastKeyPressed != null && lastKeyPressed.equals("right"))
-                    setImage(hashMapSprites.currentSprite("right",0));
+                if(((Map)getWorld()).getHud().getLevel().equals(Stage.THIRD))
+                    gameOver(true);
+                else
+                    showWindow();
             }
-        }else
-            showWindow();
+
+        }else{
+            gameOver(false);
+        }
     }
 
+    public void setActivatedWeapon(int activatedWeapon){
+        this.activatedWeapon = activatedWeapon;   
+    }
+    
+    public int getActivatedWeapon(){
+       return activatedWeapon;   
+    }
+    
     private void showWindow(){
+        
         Map world = (Map)getWorld();
+        Hud hud = world.getHud();
+
         world.addObject( new BtnNextLevel(),world.getWidth()/2,world.getHeight()/2);
-        world.addObject( new WindowSummary("cadena de prueba"),world.getWidth()/2,200);
+        WindowSummary window = new WindowSummary();
+        world.addObject(window,world.getWidth()/2,200);
+        window.showSummary(hud);
+        
     }
 
-    private boolean isFinish(){
+    private void gameOver(boolean gameFinish){
+        if(gameFinish){
+            Greenfoot.setWorld(new GameOver(new GreenfootImage("images/background-black.jpg")));
+        }else{
+            (new GreenfootSound("sounds/game-over.wav")).play();
+            Greenfoot.setWorld(new GameOver());
+        }
+    }    
+    
+    private void checkCollisionsEnemy(){
+
+        if((Enemy)getOneObjectAtOffset(20, 0, Enemy.class) != null){
+            move("left");
+            checkCollisions();
+            walk("hitToTheRight");
+            updateLife(true);
+            (new GreenfootSound("sounds/jab-jab.wav")).play();
+            Greenfoot.delay(4);
+        }else if((Enemy)getOneObjectAtOffset(-20, 0, Enemy.class) != null){
+            move("right");
+            checkCollisions();
+            walk("hitToTheLeft");
+            updateLife(true);
+            (new GreenfootSound("sounds/jab-jab.wav")).play();
+            Greenfoot.delay(4);
+        }
+        
+    }
+    
+    private void updateLife(boolean less){
+        if(less){
+            amountByLife --;
+            if(amountByLife == 0){
+                --lifes;
+                Map map = (Map)getWorld();
+                Hud hud = map.getHud();
+                hud.setLives(lifes);
+                amountByLife = AMOUNT_BY_LIFE;
+            }
+        }else{
+            
+        }
+    }
+    
+    private void shootWeapon(){
+        Map world = (Map)getWorld();
+        if(directionInX.equals(CharacterDirection.LEFT)){
+            currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("shootLeft");
+            setImage(hashMapSprites.currentSprite("shootLeft",currentSprite));
+            world.addObject(new Bullet(CharacterDirection.LEFT),getX()-50,getY());         
+        }else{
+            currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("shootRight");
+            setImage(hashMapSprites.currentSprite("shootRight",currentSprite));
+            world.addObject(new Bullet(CharacterDirection.RIGHT),getX()+50,getY()); 
+        }
+        (new GreenfootSound("sounds/EnergyGun.wav")).play();
+    }
+    
+    private boolean isFinishLevel(){
         World world = getWorld();
         return world.getObjects(Enemy.class).isEmpty();
     }
 
+    
     void jump(){
         movementInY = -10;
         currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("up");

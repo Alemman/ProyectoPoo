@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=WindowSummary
-comment1.params=summary
-comment1.target=WindowSummary(java.lang.String)
-comment2.params=
-comment2.target=void\ act()
+comment1.params=
+comment1.target=void\ act()
+comment2.params=hud
+comment2.target=void\ showSummary(Hud)
 numComments=3

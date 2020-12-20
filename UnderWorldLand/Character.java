@@ -42,22 +42,24 @@ abstract public class Character extends Actor
         }
     }
 
-    protected void checkCollisionsWalls()
+    protected void checkCollisions()
     {
-        Floor floor = null; 
+        Actor actor = null; 
 
         switch(direction)
         {
             case RIGHT:
-            floor = (Floor)getOneObjectAtOffset(20, 0, Floor.class);
+            actor = (Floor)getOneObjectAtOffset(20, 0, Floor.class);
+            actor = (Rock)getOneObjectAtOffset(20, 0, Rock.class);
             break;
             case LEFT:
-            floor = (Floor)getOneObjectAtOffset(-20, 0, Floor.class);
+            actor = (Floor)getOneObjectAtOffset(-20, 0, Floor.class);
+            actor = (Rock)getOneObjectAtOffset(-20, 0, Rock.class);
             break;
 
         }
 
-        if(floor != null)
+        if(actor != null)
         {
             movementInY = 0;
             movementInX = 0;

@@ -4,7 +4,7 @@ public class BtnNextLevel extends Button
 {
     public BtnNextLevel(){
 
-        prepareButtons("images/btn-record-red.png", "images/btn-record-yellow.png"); 
+        prepareButtons("images/btn-next-red.png", "images/btn-next-yellow.png"); 
 
     } 
 
@@ -12,6 +12,8 @@ public class BtnNextLevel extends Button
     {
         Map map = (Map)getWorld();
         MapLoader mapLoader = new MapLoader();
-        Greenfoot.setWorld(mapLoader.loadMap(map.getHud()));
+        map.getHud().setStartTime(0);
+        (map.getHud()).setLevel((map.getHud().getLevel().equals(Stage.SECOND)) ? Stage.THIRD : Stage.SECOND);
+        Greenfoot.setWorld(mapLoader.loadMap(map.getHud()));  
     } 
 }
