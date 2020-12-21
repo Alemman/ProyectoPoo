@@ -13,8 +13,6 @@ public class GameOver extends Window
     }
 
     public void prepareWindow(GreenfootImage background){
-      //  addObject(new BtnSaveName(),getWidth()/2,getHeight()-100);
-      //  addObject(new SelectName(),getWidth()/2,getHeight()/2);
     } 
 
     public void prepareWindow(){

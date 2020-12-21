@@ -1,6 +1,6 @@
 import greenfoot.*;  
 
-public class Rock extends Actor
+public class Rock extends Actor implements Walkable
 {
     public Rock(){
         GreenfootImage image = new GreenfootImage("images/rock.png");

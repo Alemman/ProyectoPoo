@@ -52,7 +52,7 @@ public class Enemy extends Character
         if(bullet != null){
             power -= HURT;
         }
-        return (power <= 0) ? true : false;
+        return power <= 0;
     }
 
     void jump(){

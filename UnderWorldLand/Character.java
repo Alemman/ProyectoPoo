@@ -49,12 +49,12 @@ abstract public class Character extends Actor
         switch(direction)
         {
             case RIGHT:
-            actor = (Floor)getOneObjectAtOffset(20, 0, Floor.class);
-            actor = (Rock)getOneObjectAtOffset(20, 0, Rock.class);
+            actor = getOneObjectAtOffset(20, 0, Walkable.class);
+
             break;
             case LEFT:
-            actor = (Floor)getOneObjectAtOffset(-20, 0, Floor.class);
-            actor = (Rock)getOneObjectAtOffset(-20, 0, Rock.class);
+            actor = getOneObjectAtOffset(-20, 0, Walkable.class);
+
             break;
 
         }

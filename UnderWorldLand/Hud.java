@@ -33,6 +33,10 @@ public class Hud extends Actor
         time = (int)((System.currentTimeMillis() - startTime)/1000);
     }
 
+    public void addScore(long points){
+        score += points;
+    }
+    
     public void setLevel(Stage stage){
         level = stage;
     }

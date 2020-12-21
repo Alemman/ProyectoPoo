@@ -3,6 +3,7 @@ import greenfoot.*;
 public class Bullet extends Actor
 {
     private static final int REWARD = 100;
+    private static final int POSITION_INCREASE = 5;
     private long pointsForHero;
     private CharacterDirection direction;
     
@@ -35,9 +36,7 @@ public class Bullet extends Actor
             Greenfoot.delay(1);
             Map map = (Map)getWorld();
             Hud hud = map.getHud();
-            pointsForHero = hud.getScore();
-            pointsForHero += REWARD;
-            hud.setScore(pointsForHero);
+            hud.addScore(REWARD);
             return true;
         }else if(rock != null){
             return true;
@@ -48,10 +47,10 @@ public class Bullet extends Actor
     private void move(){
         int increase = 0;
         if(direction.equals(CharacterDirection.LEFT)){
-            increase -= 5;
+            increase -= POSITION_INCREASE;
             setLocation(getX()+ increase, getY());
         }else{
-            increase += 5;
+            increase += POSITION_INCREASE;
             setLocation(getX()+ increase, getY());
         }
     }

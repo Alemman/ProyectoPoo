@@ -10,9 +10,7 @@ public abstract class Item extends Actor
     protected void scoreIncrease(int pointsUp){
             Map map = (Map)getWorld();
             Hud hud = map.getHud();
-            long pointsForHero = hud.getScore();
-            pointsForHero += pointsUp;
-            hud.setScore(pointsForHero);
+            hud.addScore(pointsUp);
     } 
     
     protected abstract void collisions();
