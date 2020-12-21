@@ -9,7 +9,7 @@ public class Hero extends Character
     private static final int INITIAL_POINTS = 0;
     private static final int FALL_TIME = 4;
     private static final int INITIAL_ITEMS = 4;
-    private static final int AMOUNT_BY_LIFE = 40;
+    private static final int AMOUNT_BY_LIFE = 20;
     private int activatedWeapon;
     private CharacterDirection directionInX;
     private int fallTime = 0;
@@ -121,7 +121,7 @@ public class Hero extends Character
             gameOver(false);
         }
     }
-
+    
     public void setActivatedWeapon(int activatedWeapon){
         this.activatedWeapon = activatedWeapon;   
     }
@@ -144,8 +144,10 @@ public class Hero extends Character
 
     private void gameOver(boolean gameFinish){
         if(gameFinish){
-            Greenfoot.setWorld(new GameOver(new GreenfootImage("images/background-black.jpg")));
-        }else{
+           Hud hud = ((Map)getWorld()).getHud();
+            Player player = new Player(hud.getScore(),"");
+            Greenfoot.setWorld(new GameOver(new GreenfootImage("images/background-black.jpg"),player));
+      }else{
             (new GreenfootSound("sounds/game-over.wav")).play();
             Greenfoot.setWorld(new GameOver());
         }
@@ -171,10 +173,10 @@ public class Hero extends Character
         
     }
     
-    private void updateLife(boolean less){
+    public void updateLife(boolean less){
         if(less){
             amountByLife --;
-            if(amountByLife == 0){
+            if(amountByLife <= 0){
                 --lifes;
                 Map map = (Map)getWorld();
                 Hud hud = map.getHud();
@@ -182,7 +184,10 @@ public class Hero extends Character
                 amountByLife = AMOUNT_BY_LIFE;
             }
         }else{
-            
+                ++lifes;
+                Map map = (Map)getWorld();
+                Hud hud = map.getHud();
+                hud.setLives(lifes);
         }
     }
     

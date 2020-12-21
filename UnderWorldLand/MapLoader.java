@@ -83,6 +83,7 @@ public class MapLoader
         map.addObject(new ItemAPink(), 300, 200);
         map.addObject(new ItemABlack(), 550, 200);
         map.addObject(new ItemV(), 500, 550);
+        map.addObject(new Botiquin(), 500, 400);
         map.addObject(new Hero(),400,50);
         map.addObject(new Enemy(),80,500);
         map.addObject(new BtnMainMenu(),70,30);
