@@ -35,7 +35,6 @@ public class GameOver extends Window
         Greenfoot.delay(50);
         GreenfootSound musicCredits = new GreenfootSound("sounds/Music.wav");
         musicCredits.play();
-         setBackground("images/final.png");
         while(musicCredits.isPlaying());
         setBackground("images/game-over.jpg");
         (new GreenfootSound("sounds/game-over.wav")).play();
