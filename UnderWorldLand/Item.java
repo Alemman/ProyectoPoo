@@ -1,11 +1,17 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-public class Item extends Actor
+public abstract class Item extends Actor
 {
-
+    
     public void act() 
     {
-        // Add your action code here.
+        collisions();
     }  
-
+    protected void scoreIncrease(int pointsUp){
+            Map map = (Map)getWorld();
+            Hud hud = map.getHud();
+            hud.addScore(pointsUp);
+    } 
+    
+    protected abstract void collisions();
 }

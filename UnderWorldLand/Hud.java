@@ -3,7 +3,7 @@ import greenfoot.*;
 public class Hud extends Actor
 {
     private Stage level;
-    private int score;
+    private long score;
     private int lives;
     private long time;
     private long startTime = 0;
@@ -25,7 +25,7 @@ public class Hud extends Actor
         return "Life: " + Integer.toString(lives)
         + "       Time: " + time + "\n"
         + "        Level: " + level
-        + "  Score: " + Integer.toString(score);
+        + "  Score: " + Long.toString(score);
     }
 
     private void timer(){
@@ -33,14 +33,22 @@ public class Hud extends Actor
         time = (int)((System.currentTimeMillis() - startTime)/1000);
     }
 
+    public void addScore(long points){
+        score += points;
+    }
+    
     public void setLevel(Stage stage){
         level = stage;
     }
 
-    public void setScore(int score){
-        this.score += score;
+    public void setScore(long score){
+        this.score = score;
     }
 
+    public void setStartTime(int startTime){
+        this.startTime = startTime;
+    }
+    
     public void setLives(int lives){
         this.lives = lives;
     }
@@ -49,7 +57,7 @@ public class Hud extends Actor
         return level;
     }
 
-    public int getScore(){
+    public long getScore(){
         return score;
     }
 

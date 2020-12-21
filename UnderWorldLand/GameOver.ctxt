@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=GameOver
+comment1.params=background
+comment1.target=GameOver(greenfoot.GreenfootImage)
+comment2.params=
+comment2.target=GameOver()
+comment3.params=background
+comment3.target=void\ prepareWindow(greenfoot.GreenfootImage)
+comment4.params=
+comment4.target=void\ prepareWindow()
+numComments=5

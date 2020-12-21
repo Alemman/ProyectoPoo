@@ -9,5 +9,5 @@ comment3.target=void\ jump()
 comment4.params=keyDirection
 comment4.target=void\ move(java.lang.String)
 comment5.params=
-comment5.target=void\ checkCollisionsWalls()
+comment5.target=void\ checkCollisions()
 numComments=6
