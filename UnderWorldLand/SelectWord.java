@@ -1,17 +1,16 @@
 import greenfoot.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class SelectWord  extends Actor
 {
-    private static final LinkedList<String> ALPHABET = new LinkedList<String>()
-    {{
-        add("A");add("B");add("C");add("D");add("E");
-        add("F");add("G");add("H");add("I");add("J");
-        add("K");add("L");add("M");add("N");add("O");
-        add("P");add("Q");add("R");add("S");add("T");
-        add("U");add("V");add("W");add("X");add("Y");
-        add("Z");
-    }};
+    private static final ArrayList<String> ALPHABET = new ArrayList<String>();
+    static
+    {
+      for(char character = 'A'; character <= 'Z' ; character++)
+      {
+          ALPHABET.add(String.valueOf(character));
+      }
+    }
 
     private BtnUp btnUp;
     private BtnDown btnDown;

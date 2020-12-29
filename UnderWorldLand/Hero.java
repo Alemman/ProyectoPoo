@@ -2,7 +2,6 @@ import greenfoot.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-
 public class Hero extends Character
 {
     private static final int INITIAL_LIFES = 3;
@@ -46,14 +45,13 @@ public class Hero extends Character
         }
         hashMapSprites.putSprites("hitToTheRight",spritesKnockRight);
         hashMapSprites.putSprites("hitToTheLeft",spritesKnockLeft);
-        
-        
+
         ArrayList<GreenfootImage> spritesShootRight = new ArrayList<GreenfootImage>();
         ArrayList<GreenfootImage> spritesShootLeft =  new ArrayList<GreenfootImage>();
         spritesShootRight.add(new GreenfootImage("images/hero-shoot.png"));
         spritesShootLeft.add(new GreenfootImage("images/hero-shoot.png"));
         spritesShootLeft.get(0).mirrorHorizontally();
-        
+
         hashMapSprites.putSprites("shootRight",spritesShootRight);
         hashMapSprites.putSprites("shootLeft",spritesShootLeft);
 
@@ -108,7 +106,7 @@ public class Hero extends Character
                 }
                 if(Greenfoot.isKeyDown("space") && activatedWeapon <= 0)
                     shootWeapon();
-                    
+
                 checkCollisionsEnemy();                       
             }else{
                 if(((Map)getWorld()).getHud().getLevel().equals(Stage.THIRD))
@@ -121,17 +119,17 @@ public class Hero extends Character
             gameOver(false);
         }
     }
-    
+
     public void setActivatedWeapon(int activatedWeapon){
         this.activatedWeapon = activatedWeapon;   
     }
-    
+
     public int getActivatedWeapon(){
-       return activatedWeapon;   
+        return activatedWeapon;   
     }
-    
+
     private void showWindow(){
-        
+
         Map world = (Map)getWorld();
         Hud hud = world.getHud();
 
@@ -139,20 +137,20 @@ public class Hero extends Character
         WindowSummary window = new WindowSummary();
         world.addObject(window,world.getWidth()/2,200);
         window.showSummary(hud);
-        
+
     }
 
     private void gameOver(boolean gameFinish){
         if(gameFinish){
-           Hud hud = ((Map)getWorld()).getHud();
+            Hud hud = ((Map)getWorld()).getHud();
             Player player = new Player(hud.getScore(),"");
             Greenfoot.setWorld(new GameOver(new GreenfootImage("images/background-black.jpg"),player));
-      }else{
+        }else{
             (new GreenfootSound("sounds/game-over.wav")).play();
             Greenfoot.setWorld(new GameOver());
         }
     }    
-    
+
     private void checkCollisionsEnemy(){
 
         if((Enemy)getOneObjectAtOffset(20, 0, Enemy.class) != null){
@@ -170,9 +168,9 @@ public class Hero extends Character
             (new GreenfootSound("sounds/jab-jab.wav")).play();
             Greenfoot.delay(4);
         }
-        
+
     }
-    
+
     public void updateLife(boolean less){
         if(less){
             amountByLife --;
@@ -184,13 +182,13 @@ public class Hero extends Character
                 amountByLife = AMOUNT_BY_LIFE;
             }
         }else{
-                ++lifes;
-                Map map = (Map)getWorld();
-                Hud hud = map.getHud();
-                hud.setLives(lifes);
+            ++lifes;
+            Map map = (Map)getWorld();
+            Hud hud = map.getHud();
+            hud.setLives(lifes);
         }
     }
-    
+
     private void shootWeapon(){
         Map world = (Map)getWorld();
         if(directionInX.equals(CharacterDirection.LEFT)){
@@ -204,13 +202,12 @@ public class Hero extends Character
         }
         (new GreenfootSound("sounds/EnergyGun.wav")).play();
     }
-    
+
     private boolean isFinishLevel(){
         World world = getWorld();
         return world.getObjects(Enemy.class).isEmpty();
     }
 
-    
     void jump(){
         movementInY = -10;
         currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("up");

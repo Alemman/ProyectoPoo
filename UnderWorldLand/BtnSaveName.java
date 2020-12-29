@@ -4,7 +4,7 @@ public class BtnSaveName extends Button
 {
     public BtnSaveName()
     {
-        prepareButtons("images/btn-ayuda-red.png", "images/btn-ayuda-yellow.png");
+        prepareButtons("images/guardar-red.png", "images/guardar-yellow.png");
     }
 
     void doAction(){
@@ -15,12 +15,11 @@ public class BtnSaveName extends Button
         GameOver world = (GameOver)getWorld();
         Player player = world.getPlayer();
         ArrayList<SelectWord> list = world.getWords();
-        String userName = "";
+        StringBuilder userName = new StringBuilder();
         for(SelectWord selectWord : list){
-            userName += selectWord.getCurrentWord();
-        }
-        
-        player.setUsername(userName);
+             userName.append(selectWord.getCurrentWord());
+            }
+        player.setUsername(userName.toString());
         UpdateData updateDate = new UpdateData();
         updateDate.addRecord(player);
         world.setIsTheEnd(true);
