@@ -129,7 +129,6 @@ public class Hero extends Character
     }
 
     private void showWindow(){
-
         Map world = (Map)getWorld();
         Hud hud = world.getHud();
 
@@ -141,11 +140,14 @@ public class Hero extends Character
     }
 
     private void gameOver(boolean gameFinish){
-        if(gameFinish){
+        if(gameFinish)
+        {
             Hud hud = ((Map)getWorld()).getHud();
             Player player = new Player(hud.getScore(),"");
             Greenfoot.setWorld(new GameOver(new GreenfootImage("images/background-black.jpg"),player));
-        }else{
+        }
+        else
+        {
             (new GreenfootSound("sounds/game-over.wav")).play();
             Greenfoot.setWorld(new GameOver());
         }
@@ -160,7 +162,9 @@ public class Hero extends Character
             updateLife(true);
             (new GreenfootSound("sounds/jab-jab.wav")).play();
             Greenfoot.delay(4);
-        }else if((Enemy)getOneObjectAtOffset(-20, 0, Enemy.class) != null){
+        }
+        else if((Enemy)getOneObjectAtOffset(-20, 0, Enemy.class) != null)
+        {
             move("right");
             checkCollisions();
             walk("hitToTheLeft");
@@ -172,16 +176,20 @@ public class Hero extends Character
     }
 
     public void updateLife(boolean less){
-        if(less){
+        if(less)
+        {
             amountByLife --;
-            if(amountByLife <= 0){
+            if(amountByLife <= 0)
+            {
                 --lifes;
                 Map map = (Map)getWorld();
                 Hud hud = map.getHud();
                 hud.setLives(lifes);
                 amountByLife = AMOUNT_BY_LIFE;
             }
-        }else{
+        }
+        else
+        {
             ++lifes;
             Map map = (Map)getWorld();
             Hud hud = map.getHud();
@@ -191,11 +199,14 @@ public class Hero extends Character
 
     private void shootWeapon(){
         Map world = (Map)getWorld();
-        if(directionInX.equals(CharacterDirection.LEFT)){
+        if(directionInX.equals(CharacterDirection.LEFT))
+        {
             currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("shootLeft");
             setImage(hashMapSprites.currentSprite("shootLeft",currentSprite));
             world.addObject(new Bullet(CharacterDirection.LEFT),getX()-50,getY());         
-        }else{
+        }
+        else
+        {
             currentSprite = (++currentSprite) % hashMapSprites.spritesCountByKey("shootRight");
             setImage(hashMapSprites.currentSprite("shootRight",currentSprite));
             world.addObject(new Bullet(CharacterDirection.RIGHT),getX()+50,getY()); 
