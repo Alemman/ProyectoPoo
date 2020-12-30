@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=SelectWord
+comment1.params=
+comment1.target=SelectWord()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=java.lang.String\ getCurrentWord()
+comment4.params=
+comment4.target=BtnUp\ getBtnUp()
+comment5.params=
+comment5.target=BtnDown\ getBtnDown()
+numComments=6

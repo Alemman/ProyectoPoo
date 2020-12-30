@@ -23,7 +23,14 @@ abstract public class Button extends Actor
 
         images[1] = new GreenfootImage(clickedButtonState);
         images[1].scale(WIDTH_BUTTON,HEIGHT_BUTTON);
-    }    
+    }   
+    
+    protected void prepareButtons(GreenfootImage normalButtonState, GreenfootImage clickedButtonState){
+        images = new GreenfootImage[2];
+        images[0] = new GreenfootImage(normalButtonState);
+        setImage(images[0]);
+        images[1] = new GreenfootImage(clickedButtonState);
+    }  
 
     abstract void doAction();
 }

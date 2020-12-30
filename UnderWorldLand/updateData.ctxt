@@ -1,13 +1,11 @@
 #BlueJ class context
-comment0.target=updateData
-comment1.params=
-comment1.target=updateData()
-comment2.params=player
-comment2.target=void\ writeRecords(Player)
-comment3.params=playerToInsert
-comment3.target=void\ addRecord(Player)
+comment0.target=UpdateData
+comment1.params=player
+comment1.target=void\ writeRecords(Player)
+comment2.params=playerToInsert
+comment2.target=void\ addRecord(Player)
+comment3.params=
+comment3.target=void\ delete()
 comment4.params=
-comment4.target=void\ delete()
-comment5.params=
-comment5.target=Player[]\ readRecords()
-numComments=6
+comment4.target=Player[]\ readRecords()
+numComments=5

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Enemy extends Character
 {
     private static final int HURT = 100;
-    private static final long POWER = 1000;
+    private static final long POWER = 10000;
     private long power;
     private int position = 1;
     private int pointsForHero;

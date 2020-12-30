@@ -10,11 +10,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.File;
 
-public class updateData  
+public class UpdateData  
 {
-    public updateData()
-    {
-    }
 
     private void writeRecords(Player player){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("documents/record.txt", true));
@@ -76,6 +73,7 @@ public class updateData
             }
             return players;
         } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
             return null;
         }
     }
